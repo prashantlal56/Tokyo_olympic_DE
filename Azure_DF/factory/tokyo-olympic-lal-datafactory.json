@@ -1,0 +1,9 @@
+{
+	"name": "tokyo-olympic-lal-datafactory",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "44a15433-0d1f-4504-89a7-b7e4af7841ec",
+		"tenantId": "f50a35bc-a85f-4cd6-a0cf-1884b7e222ad"
+	}
+}

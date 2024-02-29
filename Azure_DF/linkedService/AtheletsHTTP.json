@@ -1,0 +1,12 @@
+{
+	"name": "AtheletsHTTP",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://github.com/prashantlal56/Tokyo_olympic_DE/raw/main/Dataset/Athletes.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
