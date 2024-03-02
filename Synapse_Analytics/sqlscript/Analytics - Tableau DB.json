@@ -1,0 +1,17 @@
+{
+	"name": "Analytics - Tableau DB",
+	"properties": {
+		"content": {
+			"query": "with columnar_base as\n(SELECT \n    Country, 'Gold' as medal_type, Gold as medals\nFROM country_performance\nunion \nSELECT \n    Country, 'Silver' as medal_type, Silver as medals\nFROM country_performance\nunion \nSELECT \n    Country, 'Bronze' as medal_type, Bronze as medals\nFROM country_performance)\n\nselect a.*, b.Total, b.Rank_by_Total, b.player_cnt, b.discipline_participate, b.coaches_cnt, b.team_cnt\n from columnar_base a\n left join country_performance b\n on a.Country = b.Country;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Tokyo_Olympic_DB",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
