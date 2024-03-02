@@ -1,0 +1,17 @@
+{
+	"name": "Analytics V2",
+	"properties": {
+		"content": {
+			"query": "select * from country_performance;\n\nselect count(*) from country_performance;\n\nselect * from country_performance order by Rank_by_Total;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Tokyo_Olympic_DB",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
