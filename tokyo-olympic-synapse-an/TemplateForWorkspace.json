@@ -94,7 +94,27 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/Analytics')]",
+			"name": "[concat(parameters('workspaceName'), '/Analytics - Tableau DB')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "with columnar_base as\n(SELECT \n    Country, 'Gold' as medal_type, Gold as medals\nFROM country_performance\nunion \nSELECT \n    Country, 'Silver' as medal_type, Silver as medals\nFROM country_performance\nunion \nSELECT \n    Country, 'Bronze' as medal_type, Bronze as medals\nFROM country_performance)\n\nselect a.*, b.Total, b.Rank_by_Total, b.player_cnt, b.discipline_participate, b.coaches_cnt, b.team_cnt\n from columnar_base a\n left join country_performance b\n on a.Country = b.Country;\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Tokyo_Olympic_DB",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Analytics V1')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -108,6 +128,26 @@
 						"poolName": "Built-in"
 					},
 					"resultLimit": -1
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Analytics V2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "select * from country_performance;\n\nselect count(*) from country_performance;\n\nselect * from country_performance order by Rank_by_Total;",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Tokyo_Olympic_DB",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
 				},
 				"type": "SqlQuery"
 			},
@@ -175,8 +215,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Country",
@@ -191,8 +230,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Discipline",
@@ -207,8 +245,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"ColumnSetEntityName": "86494c1e-5f0b-4ce8-9408-aa5bae0036de",
@@ -220,8 +257,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/athelets/part-00000-tid-1146137248992701110-264e8a00-4522-4da4-8064-a219d1a3b583-11-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
@@ -302,8 +339,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Country",
@@ -318,8 +354,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Discipline",
@@ -334,8 +369,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Event",
@@ -350,8 +384,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"ColumnSetEntityName": "142b81bb-5b17-4938-a44c-75da65299e83",
@@ -363,8 +396,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/coaches/part-00000-tid-3078672926660790470-35003523-3c25-4bae-b977-7b5338b9c8e9-12-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
@@ -442,8 +475,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Country",
@@ -455,8 +487,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Gold",
@@ -467,8 +498,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Silver",
@@ -479,8 +509,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Bronze",
@@ -491,8 +520,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Total",
@@ -503,8 +531,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Rank_by_Total",
@@ -515,8 +542,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "player_cnt",
@@ -527,8 +553,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "discipline_participate",
@@ -539,8 +564,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "coaches_cnt",
@@ -551,8 +575,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "team_cnt",
@@ -563,8 +586,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"Format": {
@@ -575,8 +597,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/country_performance/part-00000-tid-1970024398432531926-314ec534-b428-45d7-8158-5ab75d7f18d9-36-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
@@ -640,8 +662,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Female",
@@ -656,8 +677,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Male",
@@ -672,8 +692,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Total",
@@ -688,8 +707,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"ColumnSetEntityName": "a216b958-3394-45c5-9cc3-27851f19a66d",
@@ -701,8 +719,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/entriesgender/part-00000-tid-1855063118641690879-b86fcff2-a1b8-4a68-b0fa-571be7eadd0e-14-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
@@ -787,8 +805,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Team_Country",
@@ -803,8 +820,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Gold",
@@ -819,8 +835,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Silver",
@@ -835,8 +850,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Bronze",
@@ -851,8 +865,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Total",
@@ -867,8 +880,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Rank_by_Total",
@@ -883,8 +895,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"ColumnSetEntityName": "3922db37-b156-4b93-bdf1-28f2cc95f7e0",
@@ -896,8 +907,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/medals/part-00000-tid-8389971244128605779-1ae5e0c2-21e5-474d-b1d7-f1cec29798a5-13-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
@@ -979,8 +990,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Discipline",
@@ -995,8 +1005,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Country",
@@ -1011,8 +1020,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Event",
@@ -1027,8 +1035,7 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"ColumnSetEntityName": "a1ee9d7a-1603-405f-975e-4c7de47f8b48",
@@ -1040,8 +1047,8 @@
 									"Properties": {
 										"path": "abfss://tokyo-olympic-data@tokyoolympicdatalal.dfs.core.windows.net/transformed-data/teams/part-00000-tid-3356931724190852121-5f96c0f5-47e3-406c-ae3c-c520d682cead-15-1-c000.csv",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "true",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "true"
