@@ -14,4 +14,5 @@ Steps:
 3. Scripting transformation query in Azure Databrick and storing the transformed data in Azure Datalake Gen2
 4. Connecting the transformed data to Azure Synapse for data analysis
 5. Connecting with Tableau for data visualization
+   
    ![Tableau](https://github.com/prashantlal56/Tokyo_olympic_DE/blob/main/Image/Screenshot%202024-03-02%20at%2022.12.49.png)
