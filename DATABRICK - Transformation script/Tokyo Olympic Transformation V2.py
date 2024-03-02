@@ -58,7 +58,7 @@ ccountry_performance.show()
 
 # COMMAND ----------
 
-ccountry_performance.write.format('csv').mode('overwrite').save('dbfs:/mnt/tokyoolymic/transformed-data/country_performance')
+ccountry_performance.write.format('csv').mode('overwrite').option('header',True).save('dbfs:/mnt/tokyoolymic/transformed-data/country_performance')
 
 # COMMAND ----------
 
