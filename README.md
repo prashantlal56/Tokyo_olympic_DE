@@ -16,17 +16,10 @@
    For instance:
    * Total 11062 players participated in 46 different discipline from 206 different countries.
    * Amoung all players 23 players had participated in more than one discipline
-   * Top 3 Female dominating discipline with female population percenatge:
-       ------------------------|------
-       Artistic Swimming       | 100%
-       Rhythmic Gymnastics     | 100%        
-       Cycling BMX Freestyle   | 52%        
+   * Top 3 Female dominating discipline with female population percenatge:                                                                                         
+       ---------------------------|------                                                                                                                                    Artistic Swimming       | 100%                                                                                                                                     Rhythmic Gymnastics     | 100%                                                                                                                                     Cycling BMX Freestyle   | 52%        
        
-   * Top 3 Male dominating discipline with Male population percenatge:
-       ---------------|------
-       Wrestling      | 66%
-       Cycling Road   | 65%        
-       Boxing         | 64%  
+   * Top 3 Male dominating discipline with Male population percenatge:                                                                                                   -------------------|------                                                                                                                                             Wrestling      | 66%                                                                                                                                               Cycling Road   | 65%                                                                                                                                               Boxing         | 64%  
 6. Connecting with Tableau for data visualization
    
    ![Tableau](https://github.com/prashantlal56/Tokyo_olympic_DE/blob/main/Image/Screenshot%202024-03-02%20at%2022.12.49.png)
